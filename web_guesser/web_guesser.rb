@@ -1,36 +1,49 @@
 require 'sinatra'
 require 'sinatra/reloader'
 
-set :number, rand(101)
-
-def check_guess(guess)
-    if guess > settings.number
-        message = "Too high!"
-        if guess - settings.number >= 15
-            color = "darkred"
-        elsif guess - settings.number <= 5
-            color = "palevioletred"
-        else
-            color = "red"
-        end
-    elsif guess < settings.number
-        message = "Too low!"
-        if settings.number - guess >= 15
-            color = "darkred"
-        elsif settings.number - guess <= 5
-            color = "palevioletred"
-        else
-            color = "red"
-        end
-    else
-        message = "That is correct! The Secret Number was #{guess}!"
-        color = "green"
-    end
-    return color, message
-end
+@@guesses = 6
+SECRET_NUMBER = rand(100)
 
 get '/' do
     guess = params['guess'].to_i
-    color, message = check_guess(guess)
-    erb :index, :locals => {:number => settings.number, :guess => guess, :message => message, :color => color}
+    message = check_guess(guess)
+
+    if @@guesses == 1 && guess != SECRET_NUMBER
+        message = "Sorry you lose!"
+        @@guesses = 5
+        SECRET_NUMBER = rand(100)
+        color = "white"
+    elsif SECRET_NUMBER == guess
+        @@guesses = 5
+        SECRET_NUMBER = rand(100)
+        color = "green"
+    else
+        @@guesses -= 1
+        color = set_color((guess - SECRET_NUMBER).abs)
+    end
+    
+    erb :index, :locals => {:number => SECRET_NUMBER, :guess => guess, :message => message, :color => color, :guesses => @@guesses}
+end
+
+
+def check_guess(guess)
+    if guess > SECRET_NUMBER
+        message = "Too high!"
+    elsif guess < SECRET_NUMBER
+        message = "Too low!"
+    else
+        message = "That is correct! The Secret Number was #{guess}!"
+    end
+   message
+end
+
+def set_color(guess)
+    if guess >= 15
+        color = "darkred"
+    elsif guess > 5 && guess < 15
+        color = "red"
+    elsif guess > 0 && guess <= 5
+        color = "palevioletred"
+    end
+    color
 end
