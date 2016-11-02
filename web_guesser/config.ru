@@ -1,2 +1,2 @@
 require './web_guesser.rb'
-run WebApp
+run Sinatra::Application
