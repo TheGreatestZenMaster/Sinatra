@@ -7,6 +7,7 @@ SECRET_NUMBER = rand(100)
 get '/' do
     guess = params['guess'].to_i
     message = check_guess(guess)
+    cheat = params['cheat']
 
     if @@guesses == 1 && guess != SECRET_NUMBER
         message = "Sorry you lose!"
@@ -22,7 +23,9 @@ get '/' do
         color = set_color((guess - SECRET_NUMBER).abs)
     end
     
-    erb :index, :locals => {:number => SECRET_NUMBER, :guess => guess, :message => message, :color => color, :guesses => @@guesses}
+    cheat_message = "#{SECRET_NUMBER}" if cheat
+    
+    erb :index, :locals => {:number => SECRET_NUMBER, :guess => guess, :message => message, :color => color, :guesses => @@guesses, :cheat => cheat_message}
 end
 
 
