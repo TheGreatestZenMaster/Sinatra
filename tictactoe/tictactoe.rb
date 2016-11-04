@@ -1,51 +1,15 @@
 
 #The Game of Tic Tac Toe
 class Game
+	attr_accessor :display
 	#initializes the game and then starts one
 	def initialize()
-		puts "Greetings Challengers! Time to test yourselves!"
-		puts "Player 1: What is your name?"
-		@player1 = Player.new(gets.chomp)
-		puts "Player 2: What is your name?"
-		@player2 = Player.new(gets.chomp)
+		#puts "Greetings Challengers! Time to test yourselves!"
+		#puts "Player 1: What is your name?"
+		#@player1 = Player.new("Jake")
+		#puts "Player 2: What is your name?"
+		#@player2 = Player.new("Bob")
 		@display = Display.new	
-		play_game
-	end
-	
-	#the main game loop
-	def play_game
-		continue = true
-		while continue
-			count = 0
-			while true
-				@player1, @player2 = @player2, @player1 if @player2.turn == :first
-				@player1.make_move(@display)
-				count += 1
-				if @player1.check_for_victory(@display.board)
-					puts "#{@player1.name} Wins!"
-					break
-				elsif count == 9
-					puts "Game Over! It was a tie!"
-					break
-				else
-					@player2.make_move(@display)
-					count += 1
-					if @player2.check_for_victory(@display.board)
-						puts "#{@player2.name} Wins!"
-						break
-					elsif count == 9
-						puts "Game Over! It was a tie!"
-						break
-					end
-				end
-			end
-			puts @player1.display_stats
-			puts @player2.display_stats
-			new_game = new_game?
-			if new_game
-				reset_game
-			end
-		end
 	end
 
 	#asks the player if they want to continue
@@ -61,11 +25,11 @@ class Game
 	
 	#resets the game
 	def reset_game
-		puts "The Game has been reset!"
 		@display.reset
+		return "The Game has been reset!"
 	end
 end
-	
+=begin
 class Player
 	attr_accessor :symbol, :name, :wins, :loses, :turn
 	@@symbols = ["X", "O"].to_a
@@ -130,6 +94,7 @@ class Player
 		display.update(self, display.choose)
 	end
 end
+=end
 	
 class Display
 	attr_accessor :board
@@ -137,9 +102,9 @@ class Display
 	def initialize
 		@linewidth = 45
 		@board = Hash[:one => 1, :two => 2, :three => 3, :four => 4, :five => 5, :six => 6, :seven => 7, :eight => 8, :nine => 9]
-		puts ""
-		puts "Let's begin".center(@linewidth)
-		puts self.display
+		#puts ""
+		#puts "Let's begin".center(@linewidth)
+		#puts self.display
 	end
 	
 	#Simple display method that shows the board
@@ -165,7 +130,6 @@ class Display
 	#resets the board to its original state after a game
 	def reset
 		@board = Hash[:one => 1, :two => 2, :three => 3, :four => 4, :five => 5, :six => 6, :seven => 7, :eight => 8, :nine => 9]
-		self.display
 	end
 	
 	#gets input and makes sure it is valid

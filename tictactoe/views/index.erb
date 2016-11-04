@@ -4,16 +4,116 @@
             body {
                 background: lightblue;
             }
+            table {
+                width: 40%;
+                height: 50%;
+                table-layout: fixed;
+            }
+            tr {
+                width: 10%;
+            }
+            td {
+                text-align: center;
+            }
         </style>
     </head>
     <body>
+        <h1><%= message unless message.nil? %></h1>
         <p>
-            <form method="POST" action='/tictactoe'>
-                <input type="text" name='guess' />
-                <input type='submit' value='Guess!' />
+            <table>
+                <tr>
+                <% unless board[:one].is_a?(String)%>
+                    <td><form method="POST" action='/one'>
+                        <input type='text' name = 'one' size="5"/>
+                        <input type='submit' value='Submit' />
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                <% unless board[:two].is_a?(String) %>
+                <td><form method="POST" action='/two'>
+                        <input type='text' name = 'two' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                 <% unless board[:three].is_a?(String) %>
+                <td><form method="POST" action='/three'>
+                        <input type='text' name = 'three' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+            </tr>
+            <tr>
+                <% unless board[:four].is_a?(String) %>
+                <td><form method="POST" action='/four'>
+                        <input type='text' name = 'four' size="5"/>
+                        <input type='submit' value='Submit' />
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                <% unless board[:five].is_a?(String) %>
+                <td><form method="POST" action='/five'>
+                        <input type='text' name = 'five' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                <% unless board[:six].is_a?(String) %>
+                <td><form method="POST" action='/six'>
+                        <input type='text' name = 'six' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+            </tr>
+            <tr>
+                <% unless board[:seven].is_a?(String) %>
+                <td><form method="POST" action='/seven'>
+                        <input type='text' name = 'seven' size="5"/>
+                        <input type='submit' value='Submit' />
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                <% unless board[:eight].is_a?(String) %>
+                <td><form method="POST" action='/eight'>
+                        <input type='text' name = 'eight' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+                <% unless board[:nine].is_a?(String) %>
+                <td><form method="POST" action='/nine'>
+                        <input type='text' name = 'nine' size="5"/>
+                        <input type='submit' value='Submit'/>
+                    </form></td>
+                <% else %>
+                    <td><p>" "</p></td>
+                <% end %>
+            </tr></table>
+        </p>
+        <p>
+            <form method="POST" action='/reset'>
+                <button type='submit' name = 'reset'>Reset</button>
             </form>
         </p>
-        <p> <%= colors %></p>
-
+        <br>
+        <p style="text-align:center;">
+            <%= "---- --- ----" %> <br>
+		    <%= "| #{board[:one]} | #{board[:two]} | #{board[:three]} |" %><br>
+		    <%= "---- --- ----" %><br>
+		    <%= "| #{board[:four]} | #{board[:five]} | #{board[:six]} |" %><br>
+		    <%= "---- --- ----" %><br>
+		    <%= "| #{board[:seven]} | #{board[:eight]} | #{board[:nine]} |" %><br>
+		    <%= "---- --- ----" %><br>
+        </p>
     </body>
 </html>
