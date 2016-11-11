@@ -1,2 +1,2 @@
-require './play.rb'
-run MasterMind
+require './mastermind_web_app.rb'
+run MasterMindWebApp

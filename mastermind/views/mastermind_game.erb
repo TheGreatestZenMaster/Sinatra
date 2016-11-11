@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <style>
+            body {
+                background: lightblue;
+            }
+            #main {
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+                text-align: center;
+            }
+            #output {
+                text-align: center;
+                margin: 0 auto;
+            }
+            #form {
+                text-align: center;
+            }
+            h1 {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='main'>
+            <h1> <%= @message %></h1>
+            <% unless @exit %>
+                <% unless session['count'] == 0 %>
+                    <div id='output'>
+                        <p><% unless @guess == 'exit' || session['count'].nil? %>
+                            <% (1..session['count']).each do |x| %>
+                                <%= session[x.to_s] %>
+                                <% guess = session[x.to_s] %>
+                                <% unless session[guess].nil? %>
+                                    <% session[guess][0].times do %>
+                                        <img src="http://www.clipartkid.com/images/629/black-circle-clip-art-black-white-download-vector-clip-art-oU0KDR-clipart.png" style="width:20px;height:20px;">
+                                    <% end %>
+                                    <% session[guess][1].times do %>
+                                        <img src="http://i.stack.imgur.com/qdR8p.png" style="width:20px;height:20px;">
+                                    <% end %>
+                                <% end %>
+                                <br>
+                            <% end %>
+                        <% end %></p>
+                    </div>
+                    <% end %>
+                <% unless @message == 'You Won' %>
+                    <div id='form'>
+                        <p><form method="POST" action='/mastermind'>
+                            <input type="text" name='guess1' size='1' />
+                            <input type="text" name='guess2' size='1' />
+                            <input type="text" name='guess3' size='1' />
+                            <input type="text" name='guess4' size='1' />
+                            <input type='submit' value='Guess!' />
+                        </form></p>
+                        <p> <%= @colors %></p>
+                        <form method="POST" action='/mastermind'>
+                            <input type='hidden' name = 'exit' value='exit'/>
+                            <input type = 'submit' name ='exit' value='exit' />
+                        </form>
+                    </div>
+                <% end %>
+            <% end %>
+            <% if @exit == 'exit' || @message == "You Won" || @message == "You Lost" %>
+                <form method="POST" action='/mastermind'>
+                    <input type='hidden' name = 'reset' value='reset'/>
+                    <input type = 'submit' name ='reset' value='reset' />
+                </form>
+            <% end %>
+        </div>
+    </body>
+</html>
+
+

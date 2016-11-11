@@ -3,117 +3,164 @@
         <style>
             body {
                 background: lightblue;
+                
             }
             table {
-                width: 40%;
-                height: 50%;
-                table-layout: fixed;
-            }
-            tr {
-                width: 10%;
-            }
-            td {
                 text-align: center;
+                width: 270px;
+                table-layout: fixed;
+                margin: 0 auto;
+                
+            }
+            h1 {
+                text-align: center;
+            }
+            
+            td {
+                width: 100px;
+                height: 100px;
+                text-align: center;
+                border: 3px solid black;
+            }
+            div {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
+            #reset {
+                text-align: center;
+            }
+            #innter {
+                display: center;
             }
         </style>
     </head>
     <body>
+        <div>
         <h1><%= message unless message.nil? %></h1>
-        <p>
+        <p id="inner">
             <table>
                 <tr>
                 <% unless board[:one].is_a?(String)%>
                     <td><form method="POST" action='/one'>
-                        <input type='text' name = 'one' size="5"/>
-                        <input type='submit' value='Submit' />
+                        <input type='hidden' name = 'one' value='X'/>
+                        <input type = 'submit' name ='one-x' value='X' />
+                    </form>
+                    <form method="POST" action='/one'>
+                        <input type='hidden' name = 'one' value='O'/>
+                        <input type = 'submit' name ='one-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:one]}"  %></p></td>
                 <% end %>
                 <% unless board[:two].is_a?(String) %>
                 <td><form method="POST" action='/two'>
-                        <input type='text' name = 'two' size="5"/>
-                        <input type='submit' value='Submit'/>
-                    </form></td>
+                        <input type='hidden' name = 'two' value='X'/>
+                        <input type = 'submit' name ='two-x' value='X' />
+                    </form>
+                    <form method="POST" action='/two'>
+                    <input type='hidden' name = 'two' value='O'/>
+                        <input type = 'submit' name ='two-o' value='O' />
+                    </form></td></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:two]}"  %></p></td>
                 <% end %>
                  <% unless board[:three].is_a?(String) %>
                 <td><form method="POST" action='/three'>
-                        <input type='text' name = 'three' size="5"/>
-                        <input type='submit' value='Submit'/>
+                        <input type='hidden' name = 'three' value='X'/>
+                        <input type = 'submit' name ='three-x' value='X' />
+                    </form>
+                    <form method="POST" action='/three'>
+                        <input type='hidden' name = 'three' value='O'/>
+                        <input type = 'submit' name ='three-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:three]}"  %></p></td>
                 <% end %>
             </tr>
             <tr>
                 <% unless board[:four].is_a?(String) %>
                 <td><form method="POST" action='/four'>
-                        <input type='text' name = 'four' size="5"/>
-                        <input type='submit' value='Submit' />
+                        <input type='hidden' name = 'four' value='X'/>
+                        <input type = 'submit' name ='four-x' value='X' />
+                    </form>
+                    <form method="POST" action='/four'>
+                        <input type='hidden' name = 'four' value='O'/>
+                        <input type = 'submit' name ='four-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:four]}"  %></p></td>
                 <% end %>
                 <% unless board[:five].is_a?(String) %>
                 <td><form method="POST" action='/five'>
-                        <input type='text' name = 'five' size="5"/>
-                        <input type='submit' value='Submit'/>
+                        <input type='hidden' name = 'five' value='X'/>
+                        <input type = 'submit' name ='five-x' value='X' />
+                    </form>
+                    <form method="POST" action='/five'>
+                        <input type='hidden' name = 'five' value='O'/>
+                        <input type = 'submit' name ='five-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:five]}"  %></p></td>
                 <% end %>
                 <% unless board[:six].is_a?(String) %>
-                <td><form method="POST" action='/six'>
-                        <input type='text' name = 'six' size="5"/>
-                        <input type='submit' value='Submit'/>
+               <td><form method="POST" action='/six'>
+                        <input type='hidden' name = 'six' value='X'/>
+                        <input type = 'submit' name ='six-x' value='X' />
+                    </form>
+                    <form method="POST" action='/six'>
+                        <input type='hidden' name = 'six' value='O'/>
+                        <input type = 'submit' name ='six-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:six]}"  %></p></td>
                 <% end %>
             </tr>
             <tr>
                 <% unless board[:seven].is_a?(String) %>
                 <td><form method="POST" action='/seven'>
-                        <input type='text' name = 'seven' size="5"/>
-                        <input type='submit' value='Submit' />
+                        <input type='hidden' name = 'seven' value='X'/>
+                        <input type = 'submit' name ='seven-x' value='X' />
+                    </form>
+                    <form method="POST" action='/seven'>
+                        <input type='hidden' name = 'seven' value='O'/>
+                        <input type = 'submit' name ='seven-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:seven]}"  %></p></td>
                 <% end %>
                 <% unless board[:eight].is_a?(String) %>
-                <td><form method="POST" action='/eight'>
-                        <input type='text' name = 'eight' size="5"/>
-                        <input type='submit' value='Submit'/>
+               <td><form method="POST" action='/eight'>
+                        <input type='hidden' name = 'eight' value='X'/>
+                        <input type = 'submit' name ='eight-x' value='X' />
+                    </form>
+                    <form method="POST" action='/eight'>
+                        <input type='hidden' name = 'eight' value='O'/>
+                        <input type = 'submit' name ='eight-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:eight]}"  %></p></td>
                 <% end %>
                 <% unless board[:nine].is_a?(String) %>
                 <td><form method="POST" action='/nine'>
-                        <input type='text' name = 'nine' size="5"/>
-                        <input type='submit' value='Submit'/>
+                        <input type='hidden' name = 'nine' value='X'/>
+                        <input type = 'submit' name ='nine-x' value='X' />
+                    </form>
+                    <form method="POST" action='/nine'>
+                        <input type='hidden' name = 'nine' value='O'/>
+                        <input type = 'submit' name ='nine-o' value='O' />
                     </form></td>
                 <% else %>
-                    <td><p>" "</p></td>
+                    <td><p><%= "#{board[:nine]}"  %></p></td>
                 <% end %>
             </tr></table>
         </p>
         <p>
-            <form method="POST" action='/reset'>
+            <form method="POST" action='/reset' id="reset">
                 <button type='submit' name = 'reset'>Reset</button>
             </form>
         </p>
         <br>
-        <p style="text-align:center;">
-            <%= "---- --- ----" %> <br>
-		    <%= "| #{board[:one]} | #{board[:two]} | #{board[:three]} |" %><br>
-		    <%= "---- --- ----" %><br>
-		    <%= "| #{board[:four]} | #{board[:five]} | #{board[:six]} |" %><br>
-		    <%= "---- --- ----" %><br>
-		    <%= "| #{board[:seven]} | #{board[:eight]} | #{board[:nine]} |" %><br>
-		    <%= "---- --- ----" %><br>
-        </p>
+        </div>
     </body>
 </html>

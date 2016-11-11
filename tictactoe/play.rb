@@ -5,7 +5,7 @@ class TicTacToe<Sinatra::Base
     @@game = Game.new
 
     get '/' do
-    	message = nil
+    	message = "When you're ready!"
     	board = @@game.display.board
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -17,6 +17,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['one'])
         erb :index, :locals => { :board => board, :message => message}
     end
@@ -28,6 +29,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['two'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -40,6 +42,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['three'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -52,6 +55,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['four'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -64,6 +68,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['five'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -76,6 +81,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['six'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -88,6 +94,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['seven'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -100,6 +107,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['eight'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -112,6 +120,7 @@ class TicTacToe<Sinatra::Base
 		else
 			message = "That's not a valid input!"
 		end
+		message = "Tie!" if check_for_tie
 		message = "Yeah! You won!" if check_for_victory(params['nine'])
         erb :index, :locals => { :board => board, :message => message }
     end
@@ -142,5 +151,11 @@ class TicTacToe<Sinatra::Base
 			end
 		end
 		return victory
+	end
+	
+	def check_for_tie
+		tie = false
+		tie = true if @@game.display.board.all?{|x,y| y.is_a?(String)}
+		tie
 	end
 end

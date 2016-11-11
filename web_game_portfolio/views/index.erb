@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <style>
+            body {
+                background: lightblue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> <%= @message %></h1>
+        <p>
+            <form method="POST" action='/mastermind'>
+                <input type='hidden' name = 'mastermind' value='Mastermind'/>
+                <input type='submit' value='Mastermind' />
+            </form>
+        </p>
+        <p>
+            <form method="POST" action='/tictactoe'>
+                <input type='hidden' name = 'tictactoe' value='TicTacToe'/>
+                <input type='submit' value='TicTacToe' />
+            </form>
+        </p>
+    </body>
+</html>
