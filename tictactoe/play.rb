@@ -3,133 +3,39 @@ require './tictactoe.rb'
 
 class TicTacToe<Sinatra::Base
     @@game = Game.new
-
+	@@count = 1
+	@@spaces = [:one, :two, :three, :four, :five, :six, :seven, :eight, :nine].to_a
+	
     get '/' do
     	message = "When you're ready!"
     	board = @@game.display.board
+    	@spaces = @@spaces
         erb :index, :locals => { :board => board, :message => message }
     end
-    post '/one' do
+    post '/tictactoe' do
+    	@spaces = @@spaces
+    	@@count += 1
+    	@count = @@count % 2
     	board = @@game.display.board
-    	if valid(params['one'])
-    		update(params['one'], :one)
-    		message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
+    	puts params.inspect
+    	@move = params.keys[0]
+    	if params['reset']
+    		message = @@game.reset_game
+    		board = @@game.display.board
+    		erb :index, :locals => { :board => board, :message => message }
+    	else
+	    	if valid(params[@move])
+	    		update(params[@move], @move.to_sym)
+	    		message = "Nice Move!"
+			else
+				message = "That's not a valid input!"
+			end
+			message = "Tie!" if check_for_tie
+			message = "Yeah! You won!" if check_for_victory(params[@move])
+			erb :index, :locals => { :board => board, :message => message}
 		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['one'])
-        erb :index, :locals => { :board => board, :message => message}
-    end
-    post '/two' do
-    	board = @@game.display.board
-    	if valid(params['two'])
-    		update(params['two'], :two)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['two'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/three' do
-    	board = @@game.display.board
-    	if valid(params['three'])
-    		update(params['three'], :three)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['three'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/four' do
-    	board = @@game.display.board
-    	if valid(params['four'])
-    		update(params['four'], :four)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['four'])
-        erb :index, :locals => { :board => board, :message => message }
     end
 
-    post '/five' do
-    	board = @@game.display.board
-    	if valid(params['five'])
-    		update(params['five'], :five)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['five'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/six' do
-    	board = @@game.display.board
-    	if valid(params['six'])
-    		update(params['six'], :six)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['six'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/seven' do
-    	board = @@game.display.board
-    	if valid(params['seven'])
-    		update(params['seven'], :seven)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['seven'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/eight' do
-    	board = @@game.display.board
-    	if valid(params['eight'])
-    		update(params['eight'], :eight)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['eight'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    
-    post '/nine' do
-    	board = @@game.display.board
-    	if valid(params['nine'])
-    		update(params['nine'], :nine)
-			message = "Nice Move!"
-		else
-			message = "That's not a valid input!"
-		end
-		message = "Tie!" if check_for_tie
-		message = "Yeah! You won!" if check_for_victory(params['nine'])
-        erb :index, :locals => { :board => board, :message => message }
-    end
-    post '/reset' do
-    	message = @@game.reset_game
-    	board = @@game.display.board
-    	erb :index, :locals => { :board => board, :message => message }
-    end
-    
     def update(symbol, location)
 		@@game.display.board[location] = symbol
 	end

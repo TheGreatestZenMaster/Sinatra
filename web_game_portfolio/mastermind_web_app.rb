@@ -1,30 +1,26 @@
 require 'sinatra'
 require './mastermind.rb'
 
-class WebPortfolio<Sinatra::Base
+class MasterMindWebApp<Sinatra::Base
     @@mastermind = MasterMind.new
     @@count = 0
     enable :sessions
     
     get '/' do
-    	@message = "Welcome to Jake's Game Imporium"
-    	erb :index
+    	@colors = @@mastermind.colors
+    	session['count'] = 0
+    	puts @@mastermind.secret_code
+    	@message = "Welcome to mastermind!"
+        erb :mastermind_game
     end
     
     post '/mastermind' do
-        puts params.inspect
-        @colors = @@mastermind.colors
-        if params['reset']
+    	if params['reset']
     		@message = "Game Reset!"
     		@@count = 0
     		session.clear
     		session['count'] = 0
     		@@mastermind.reset
-    		erb :mastermind_game
-    	elsif params['mastermind']
-    	    @message = "Welcome to mastermind!"
-    		@@count = 0
-    		session['count'] = 0
     		erb :mastermind_game
     	else
 	    	@colors = @@mastermind.colors
@@ -52,17 +48,7 @@ class WebPortfolio<Sinatra::Base
 				@message = "There was an error!"
 			end
 			erb :mastermind_game
-	    end
+		end
     end
-    
-    post '/tictactoe' do
-        @message = "Welcome to TicTacToe"
-    	erb :tictactoe
-    end
-    
-    post '/home' do
-        @message = "Welcome to Jake's Game Imporium"
-    	erb :index
-    end
-    
+
 end

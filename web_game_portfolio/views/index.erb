@@ -4,21 +4,29 @@
             body {
                 background: lightblue;
             }
+             #main {
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
-        <h1> <%= @message %></h1>
-        <p>
-            <form method="POST" action='/mastermind'>
-                <input type='hidden' name = 'mastermind' value='Mastermind'/>
-                <input type='submit' value='Mastermind' />
-            </form>
-        </p>
-        <p>
-            <form method="POST" action='/tictactoe'>
-                <input type='hidden' name = 'tictactoe' value='TicTacToe'/>
-                <input type='submit' value='TicTacToe' />
-            </form>
-        </p>
+        <div id='main'>
+            <h1> <%= @message %></h1>
+            <p>
+                <form method="POST" action='/mastermind'>
+                    <input type='hidden' name = 'mastermind' value='Mastermind'/>
+                    <input type='submit' value='Mastermind' />
+                </form>
+            </p>
+            <p>
+                <form method="POST" action='/tictactoe'>
+                    <input type='hidden' name = 'tictactoe' value='TicTacToe'/>
+                    <input type='submit' value='TicTacToe' />
+                </form>
+            </p>
+        </div>
     </body>
 </html>
