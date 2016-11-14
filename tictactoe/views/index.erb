@@ -45,7 +45,7 @@
     </head>
     <body>
         <div>
-        <h1><%= message unless message.nil? %></h1>
+        <h1><%= @message unless @message.nil? %></h1>
         <p id="inner">
             <table>
                 <% key_count = 0 %>
@@ -53,7 +53,7 @@
                     <% if key == :four || key == :seven %>
                         </tr><tr>
                     <% end %>
-                    <% unless board[key].is_a?(String)%>
+                    <% unless @board[key].is_a?(String)%>
                         <td><% if @count == 0 %>
                             <form method="POST" action='/tictactoe'>
                                 <input type='hidden' name = '<%= key %>' value='X'/>
@@ -67,7 +67,7 @@
                             <% end %>
                         </td>
                     <% else %>
-                        <td><% if board[key] == "X" %>
+                        <td><% if @board[key] == "X" %>
                             <img src="http://www.clipartkid.com/images/536/red-x-clipart-best-kiXKxE-clipart.png">
                             <% else %>
                             <img src="http://www.clipartkid.com/images/500/letter-o-clipart-alphabet-letter-o-vector-ZUgR8A-clipart.png">
