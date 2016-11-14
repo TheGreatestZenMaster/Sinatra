@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <style>
+            body {
+                background: lightblue;
+                
+            }
+            table {
+                text-align: center;
+                width: 270px;
+                table-layout: fixed;
+                margin: 0 auto;
+                
+            }
+            h1 {
+                text-align: center;
+            }
+            
+            td {
+                width: 100px;
+                height: 100px;
+                text-align: center;
+                border: 3px solid black;
+            }
+            div {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
+            #reset {
+                text-align: center;
+            }
+            #innter {
+                display: center;
+            }
+            img {
+                height: 40px;
+                width: 40px;
+            }
+            input {
+                height: 40px;
+                width: 40px;
+            }
+            #main {
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+                text-align: center;
+            }
+            #home_reset {
+                width: 100%;
+                clear: both;
+                display: inline-block;
+            }
+            #home_reset input {
+                width: 75px;
+                clear: both;
+            }
+    </style>
+    </head>
+    <body>
+        <div id="main">
+            <h1><%= @message unless @message.nil? %></h1>
+            <p id="inner">
+                <table>
+                    <% key_count = 0 %>
+                    <tr><% @spaces.each do |key| %>
+                        <% if key == :four || key == :seven %>
+                            </tr><tr>
+                        <% end %>
+                        <% unless @board[key].is_a?(String)%>
+                            <td><% if @count == 0 %>
+                                <form method="POST" action='/tictactoe'>
+                                    <input type='hidden' name = '<%= key %>' value='X'/>
+                                    <input type = 'submit' name ='<%= key %>-x' value='X' />
+                                </form>
+                                <% else %>
+                                <form method="POST" action='/tictactoe'>
+                                    <input type='hidden' name = '<%= key %>' value='O'/>
+                                    <input type = 'submit' name ='<%= key %>-o' value='O' />
+                                </form>
+                                <% end %>
+                            </td>
+                        <% else %>
+                            <td><% if @board[key] == "X" %>
+                                <img src="http://www.clipartkid.com/images/536/red-x-clipart-best-kiXKxE-clipart.png">
+                                <% else %>
+                                <img src="http://www.clipartkid.com/images/500/letter-o-clipart-alphabet-letter-o-vector-ZUgR8A-clipart.png">
+                                <% end %>
+                                </td>
+                        <% end %>
+                    <% end %>
+                </tr></table>
+            </p>
+            <div id ="home_reset">
+                <form method="POST" action='/tictactoe' class="home_reset">
+                    <input type='hidden' name = 'reset' value='Reset'/>
+                    <input type='submit' name = 'reset' value="Reset"></button>
+                </form>
+                <form method="post" action='home' class="home_reset">
+                    <input type='hidden' name = 'home' value='home'/>
+                    <input type = 'submit' name ='home' value='home' />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

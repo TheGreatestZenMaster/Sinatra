@@ -1,9 +1,12 @@
 require 'sinatra'
 require './mastermind.rb'
+require './tictactoe.rb'
 
 class WebPortfolio<Sinatra::Base
     @@mastermind = MasterMind.new
     @@count = 0
+    @@tictactoe = TicTacToe.new
+	@@tictactoe_count = 1
     enable :sessions
     
     get '/' do
@@ -56,8 +59,29 @@ class WebPortfolio<Sinatra::Base
     end
     
     post '/tictactoe' do
-        @message = "Welcome to TicTacToe"
-    	erb :tictactoe
+    	@board = @@tictactoe.display.board
+    	@spaces = [:one, :two, :three, :four, :five, :six, :seven, :eight, :nine].to_a
+    	if params['tictactoe']
+    		@message = "Welcome to TicTacToe"
+        	erb :tictactoe_game
+    	elsif params['reset']
+    		@message = @@tictactoe.reset_game
+    		@board = @@tictactoe.display.board
+    		erb :tictactoe_game
+    	else
+    		@move = params.keys[0]
+	    	if @@tictactoe.valid(params[@move])
+	    		@@tictactoe_count += 1
+    			@count = @@tictactoe_count % 2
+	    		@@tictactoe.display.update(params[@move], @move.to_sym)
+	    		@message = "Nice Move!"
+			else
+				@message = "That's not a valid input!"
+			end
+			@message = "Tie!" if @@tictactoe.check_for_tie
+			@message = "Yeah! You won!" if @@tictactoe.check_for_victory(params[@move])
+			erb :tictactoe_game
+		end
     end
     
     post '/home' do

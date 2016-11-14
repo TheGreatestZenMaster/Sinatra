@@ -25,7 +25,8 @@
     <body>
         <div id='main'>
             <h1> <%= @message %></h1>
-            <p>Please try to guess the secret code!</p>
+            <p>Please try to guess the secret code! You get 12 guesses! Please enter one lowercase letter from the colors below in each input field!</p>
+            <p>The output will show you one black circle for each color that is both correct and in the correct position and one white circle for each one that is the correct color but in the wrong position.</p>
             <% unless @exit %>
                 <% unless session['count'] == 0 %>
                     <div id='output'>
@@ -55,7 +56,7 @@
                             <input type="text" name='guess4' size='1' />
                             <input type='submit' value='Guess!' />
                         </form></p>
-                        <p> <%= @colors %></p>
+                        <p> [<font color="red">"R"</color>, <font color="blue">"B"</color>, <font color="yellow">"Y"</color>, <font color="green">"G"</color>, <font color="pink">"P"</color>, <font color="orange">"O"</color>]</p>
                         <form method="POST" action='/mastermind'>
                             <input type='hidden' name = 'exit' value='exit'/>
                             <input type = 'submit' name ='exit' value='exit' />
